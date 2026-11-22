@@ -60,6 +60,11 @@ h2{font-size:clamp(30px,5vw,42px);margin:0 0 26px;font-weight:800;letter-spacing
 .line .glass::before{content:"";position:absolute;left:-40px;top:28px;width:14px;height:14px;border-radius:50%;background:var(--grad);box-shadow:0 0 0 4px var(--bg)}
 .line b{display:block;font-weight:600;font-size:19px}
 .line span{color:var(--muted);font-size:15px}
+.about{max-width:720px;margin:0 auto;text-align:center}
+.about p{margin:0;color:var(--muted)}
+.dlg-actions{margin-top:16px}
+.soon{color:var(--muted);font-size:15px}
+dialog .resume-img{max-height:none;margin-bottom:10px}
 footer{text-align:center;padding:48px 0 64px}
 footer p{color:var(--muted);margin:0 0 18px}
 dialog{border:1px solid var(--edge);border-radius:20px;background:var(--dlg);color:var(--ink);padding:24px;width:min(900px,94vw);max-height:92vh;overflow:auto}
@@ -88,7 +93,7 @@ dialog img{width:100%;max-height:72vh;object-fit:contain;border-radius:10px}
 
 <section id="about">
 <h2>About me</h2>
-<div class="glass" style="max-width:720px;margin:0 auto;text-align:center"><p style="margin:0;color:var(--muted)"> Computer Science Engineering student with knowledge of Web development. I have a passion for creating user-friendly websites and applications. I am eager to learn new technologies and enhance my technical skills to build a successful career in the IT industry.</p> </div> 
+<div class="glass about"><p>I’m a Computer Science student with a strong interest in software and web development. I enjoy learning new technologies, building user-friendly applications and websites, and improving my skills through courses, projects and design events.</p></div>
 </section>
 
 <section id="projects"><h2>Projects</h2><div class="cards" id="projectCards"></div></section>
@@ -120,7 +125,7 @@ dialog img{width:100%;max-height:72vh;object-fit:contain;border-radius:10px}
 <a class="btn" href="#" data-resume>View resume</a>
 </div></div></footer>
 
-<dialog id="dlg"><h3 id="dlgTitle"></h3><div id="dlgBody"></div><div class="btns" style="margin-top:16px"><button class="btn fill" id="dlgClose" type="button">Close</button></div></dialog>
+<dialog id="dlg"><h3 id="dlgTitle"></h3><div id="dlgBody"></div><div class="btns dlg-actions"><button class="btn fill" id="dlgClose" type="button">Close</button></div></dialog>
 
 <script>
 
@@ -146,7 +151,7 @@ const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'
 
 document.getElementById("projectCards").innerHTML = CONFIG.projects.map(p => `
 <article class="glass card"><span class="tag">${esc(p.tag)}</span><h3>${esc(p.name)}</h3><p>${esc(p.text)}</p>
-<div class="row">${p.code?`<a href="${esc(p.code)}" target="_blank" rel="noopener">View code</a>`:""}${p.vscode?`<a href="${esc(p.vscode)}" target="_blank" rel="noopener">Open in VS Code</a>`:""}${p.live?`<a href="${esc(p.live)}" target="_blank" rel="noopener">Live demo</a>`:""}${!p.code&&!p.live?`<span style="color:var(--muted);font-size:15px">Link coming soon</span>`:""}</div></article>`).join("");
+<div class="row">${p.code?`<a href="${esc(p.code)}" target="_blank" rel="noopener">View code</a>`:""}${p.vscode?`<a href="${esc(p.vscode)}" target="_blank" rel="noopener">Open in VS Code</a>`:""}${p.live?`<a href="${esc(p.live)}" target="_blank" rel="noopener">Live demo</a>`:""}${!p.code&&!p.live?`<span class="soon">Link coming soon</span>`:""}</div></article>`).join("");
 
 document.getElementById("certCards").innerHTML = CONFIG.certs.map((c,i) => `
 <article class="glass card"><span class="tag">${esc(c.by)}</span><h3>${esc(c.name)}</h3><p>${esc(c.text)}</p>
@@ -169,7 +174,7 @@ const RESUME_PAGES = ["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAggCCAAD/2wBDAA
 document.querySelectorAll("[data-resume]").forEach(a => a.addEventListener("click", e => {
   e.preventDefault();
   document.getElementById("dlgTitle").textContent = "Resume – Mothiesh A";
-  body.innerHTML = RESUME_PAGES.map((u,i) => `<img src="${u}" alt="Resume page ${i+1}" style="max-height:none;margin-bottom:10px">`).join("");
+  body.innerHTML = RESUME_PAGES.map((u,i) => `<img class="resume-img" src="${u}" alt="Resume page ${i+1}">`).join("");
   dlg.showModal();
 }));
 
@@ -187,6 +192,10 @@ document.querySelectorAll("[data-resume]").forEach(a => a.addEventListener("clic
     i += del ? -1 : 1;
     setTimeout(tick, del ? 35 : 70);
   })();
+})();
+</script>
+</body>
+</html>
 })();
 </script>
 </body>
